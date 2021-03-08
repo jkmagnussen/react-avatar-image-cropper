@@ -579,10 +579,7 @@ class AvatarImageCropper extends Component {
         var ratio = this.state.sizeW / this.img2D.width;
         crop_canvas.getContext('2d').drawImage(this.img, -this.state.relX / ratio, -this.state.relY / ratio, this.img2D.width, this.img2D.height, 0, 0, this.state.sizeW, this.state.sizeH);
         crop_canvas.toBlob((blob) => {
-            this.ele.children[0].children[1].value = ""
-            this.setState({
-                preview: null
-            })
+           
             blob.name = this.filename;
             this.props.apply(blob);
         });
