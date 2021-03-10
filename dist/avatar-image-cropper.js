@@ -95,6 +95,7 @@ var SliderBtn = function (_Component) {
                 document.removeEventListener('mousemove', _this._onMove);
                 document.removeEventListener('mouseup', _this._onUp);
             }
+            _this.props.onFinishedResize();
             e.preventDefault();
         };
 
@@ -474,6 +475,7 @@ var AvatarImageCropper = function (_Component2) {
                 document.removeEventListener('mousemove', _this3._onMove);
                 document.removeEventListener('mouseup', _this3._onMouseUp);
             }
+            _this3._apply();
 
             e.preventDefault();
         };
@@ -500,12 +502,9 @@ var AvatarImageCropper = function (_Component2) {
             var ratio = _this3.state.sizeW / _this3.img2D.width;
             crop_canvas.getContext('2d').drawImage(_this3.img, -_this3.state.relX / ratio, -_this3.state.relY / ratio, _this3.img2D.width, _this3.img2D.height, 0, 0, _this3.state.sizeW, _this3.state.sizeH);
             crop_canvas.toBlob(function (blob) {
-                _this3.ele.children[0].children[1].value = "";
-                _this3.setState({
-                    preview: null
-                });
+
                 blob.name = _this3.filename;
-                _this3.props.apply(blob);
+                _this3.props.onChange(blob);
             });
         };
 
@@ -633,7 +632,8 @@ var AvatarImageCropper = function (_Component2) {
                         _react2.default.createElement(
                             'div',
                             { style: _extends({}, this.sliderDiv, this.props.sliderDivStyle) },
-                            _react2.default.createElement(SliderBtn, { sliderBtnStyle: this.props.sliderBtnStyle, sliderStyle: this.props.sliderStyle, resize: this._resize })
+                            _react2.default.createElement(SliderBtn, { sliderBtnStyle: this.props.sliderBtnStyle, sliderStyle: this.props.sliderStyle, resize: this._resize,
+                                onFinishedResize: this._apply })
                         ),
                         _react2.default.createElement(
                             'div',
@@ -872,7 +872,7 @@ AvatarImageCropper.propTypes = {
 })(typeof self !== "undefined" && self || typeof window !== "undefined" && window || undefined.content || undefined);
 
 exports.default = AvatarImageCropper;
-module.exports = exports['default'];
+module.exports = exports.default;
 
 },{"prop-types":7}],2:[function(require,module,exports){
 /*

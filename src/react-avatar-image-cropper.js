@@ -78,6 +78,7 @@ class SliderBtn extends Component {
             document.removeEventListener('mousemove', this._onMove);
             document.removeEventListener('mouseup', this._onUp);
         }
+        this.props.onFinishedResize()
         e.preventDefault();
     }
 
@@ -555,6 +556,7 @@ class AvatarImageCropper extends Component {
             document.removeEventListener('mousemove', this._onMove);
             document.removeEventListener('mouseup', this._onMouseUp);
         }
+        this._apply();
 
         e.preventDefault();
     }
@@ -581,7 +583,7 @@ class AvatarImageCropper extends Component {
         crop_canvas.toBlob((blob) => {
            
             blob.name = this.filename;
-            this.props.apply(blob);
+            this.props.onChange(blob);
         });
 
     }
@@ -681,7 +683,8 @@ class AvatarImageCropper extends Component {
                         <div style={{ ...this.sliderConStyle, ...this.props.sliderConStyle }}>
                             <div style={{ ...this.sliderChildrenDiv, ...this.props.sliderChildrenDiv }}>
                                 <div style={{ ...this.sliderDiv, ...this.props.sliderDivStyle }}>
-                                    <SliderBtn sliderBtnStyle={this.props.sliderBtnStyle} sliderStyle={this.props.sliderStyle} resize={this._resize} />
+                                    <SliderBtn sliderBtnStyle={this.props.sliderBtnStyle} sliderStyle={this.props.sliderStyle} resize={this._resize}
+                                        onFinishedResize={ this._apply}/>
                                 </div>
                                 <div name='action-con' style={{ display: 'flex', minWidth: '100px' }}>
                                     {
